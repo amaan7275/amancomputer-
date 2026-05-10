@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aman Computer Education — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1a3a5c;
+  --dark:#0f1e30;
+  --blue:#2563a8;
+  --accent:#3b82f6;
+  --light-blue:#e8f4ff;
+  --text:#1a1a2e;
+  --muted:#6b7280;
+  --card-bg:#fff;
+  --border:#e5e7eb;
+}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:#f0f6ff;
+  min-height:100vh;
+  color:var(--text);
+}
+
+/* ── NAVBAR ── */
+nav{
+  background:white;
+  border-bottom:1px solid var(--border);
+  padding:0 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  height:64px;
+  position:sticky;top:0;z-index:100;
+  box-shadow:0 2px 12px rgba(26,58,92,0.07);
+}
+.nav-left{display:flex;align-items:center;gap:12px}
+.nav-logo{
+  width:38px;height:38px;
+  background:var(--navy);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+}
+.nav-logo svg{width:20px;height:20px;fill:white}
+.nav-brand{
+  font-family:'Sora',sans-serif;
+  font-weight:700;font-size:15px;color:var(--navy);
+}
+.nav-brand span{display:block;font-size:10px;font-weight:400;color:var(--muted);letter-spacing:.5px}
+
+.nav-right{display:flex;align-items:center;gap:14px}
+.user-chip{
+  display:flex;align-items:center;gap:9px;
+  background:var(--light-blue);
+  padding:6px 14px 6px 8px;
+  border-radius:50px;
+  cursor:default;
+}
+.user-avatar{
+  width:28px;height:28px;
+  background:linear-gradient(135deg,var(--navy),var(--blue));
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:white;
+  flex-shrink:0;
+}
+.user-name-nav{font-size:13px;font-weight:500;color:var(--navy)}
+
+.btn-logout{
+  display:flex;align-items:center;gap:6px;
+  padding:7px 16px;
+  background:white;
+  border:1.5px solid #fecaca;
+  border-radius:9px;
+  font-family:'DM Sans',sans-serif;
+  font-size:13px;font-weight:500;
+  color:#dc2626;
+  cursor:pointer;
+  transition:all .2s;
+}
+.btn-logout:hover{background:#fef2f2;border-color:#ef4444}
+.btn-logout svg{width:14px;height:14px;stroke:#dc2626;fill:none}
+
+/* ── HERO BANNER ── */
+.hero{
+  background:linear-gradient(135deg,var(--dark) 0%,var(--navy) 50%,var(--blue) 100%);
+  padding:3rem 2rem 2.5rem;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;top:-60px;right:-60px;
+  width:300px;height:300px;
+  background:rgba(59,130,246,.12);
+  border-radius:50%;
+}
+.hero::after{
+  content:'';
+  position:absolute;bottom:-80px;left:20%;
+  width:200px;height:200px;
+  background:rgba(255,255,255,.04);
+  border-radius:50%;
+}
+.hero-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1}
+.hero-greeting{
+  font-size:13px;font-weight:500;
+  color:rgba(255,255,255,.6);
+  letter-spacing:1px;text-transform:uppercase;
+  margin-bottom:8px;
+}
+.hero-title{
+  font-family:'Sora',sans-serif;
+  font-size:clamp(22px,4vw,34px);
+  font-weight:800;color:white;
+  margin-bottom:8px;line-height:1.25;
+}
+.hero-title span{color:#93c5fd}
+.hero-sub{font-size:14px;color:rgba(255,255,255,.6);margin-bottom:1.8rem}
+.hero-stats{display:flex;gap:2rem;flex-wrap:wrap}
+.stat{display:flex;flex-direction:column}
+.stat-num{
+  font-family:'Sora',sans-serif;
+  font-size:22px;font-weight:800;color:white;
+}
+.stat-lbl{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.5px;text-transform:uppercase}
+
+/* ── MAIN CONTENT ── */
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+
+/* ── SECTION HEADING ── */
+.sec-head{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1.25rem;
+}
+.sec-title{
+  font-family:'Sora',sans-serif;
+  font-size:17px;font-weight:700;color:var(--navy);
+}
+.sec-link{font-size:12px;color:var(--accent);font-weight:500;cursor:pointer;text-decoration:none}
+
+/* ── COURSE GRID ── */
+.courses{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:1.2rem;
+  margin-bottom:2.5rem;
+}
+.course-card{
+  background:white;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  transition:transform .2s,box-shadow .2s;
+  cursor:pointer;
+}
+.course-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(26,58,92,.12)}
+.course-thumb{
+  height:110px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:36px;
+  position:relative;
+}
+.course-body{padding:1rem}
+.course-tag{
+  font-size:10px;font-weight:600;letter-spacing:.8px;
+  text-transform:uppercase;
+  padding:3px 8px;border-radius:5px;
+  margin-bottom:7px;display:inline-block;
+}
+.course-name{
+  font-family:'Sora',sans-serif;
+  font-size:14px;font-weight:700;color:var(--text);
+  margin-bottom:5px;line-height:1.35;
+}
+.course-meta{font-size:11.5px;color:var(--muted);margin-bottom:.75rem}
+.progress-bar{height:5px;background:#f0f0f0;border-radius:5px;overflow:hidden;margin-bottom:5px}
+.progress-fill{height:100%;border-radius:5px}
+.progress-txt{font-size:10.5px;color:var(--muted)}
+
+/* ── QUICK ACTIONS ── */
+.actions{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:1rem;margin-bottom:2.5rem;
+}
+.action-card{
+  background:white;border-radius:14px;
+  padding:1.2rem 1rem;
+  border:1px solid var(--border);
+  text-align:center;cursor:pointer;
+  transition:all .2s;
+}
+.action-card:hover{border-color:var(--accent);box-shadow:0 6px 20px rgba(59,130,246,.1)}
+.action-icon{
+  width:46px;height:46px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto .75rem;font-size:20px;
+}
+.action-label{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px}
+.action-sub{font-size:11px;color:var(--muted)}
+
+/* ── NOTICE CARD ── */
+.notice{
+  background:linear-gradient(135deg,#eff6ff,#dbeafe);
+  border:1px solid #bfdbfe;
+  border-radius:14px;
+  padding:1.25rem 1.5rem;
+  display:flex;align-items:center;gap:1rem;
+  margin-bottom:2rem;
+}
+.notice-icon{font-size:28px;flex-shrink:0}
+.notice-title{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--navy);margin-bottom:3px}
+.notice-txt{font-size:12.5px;color:#3b5a8a}
+
+/* ── LOGOUT MODAL ── */
+.modal-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.45);backdrop-filter:blur(3px);
+  z-index:999;align-items:center;justify-content:center;
+}
+.modal-overlay.show{display:flex}
+.modal{
+  background:white;border-radius:18px;
+  padding:2rem;width:340px;text-align:center;
+  box-shadow:0 30px 80px rgba(0,0,0,.2);
+  animation:popIn .2s ease;
+}
+@keyframes popIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+.modal-icon{font-size:40px;margin-bottom:1rem}
+.modal-title{font-family:'Sora',sans-serif;font-size:18px;font-weight:800;margin-bottom:.5rem;color:var(--text)}
+.modal-sub{font-size:13px;color:var(--muted);margin-bottom:1.5rem;line-height:1.5}
+.modal-btns{display:flex;gap:.75rem;justify-content:center}
+.btn-cancel{
+  flex:1;padding:10px;border:1.5px solid var(--border);
+  border-radius:9px;background:white;
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
+  color:var(--muted);cursor:pointer;transition:all .2s;
+}
+.btn-cancel:hover{background:#f9fafb}
+.btn-confirm-logout{
+  flex:1;padding:10px;border:none;
+  border-radius:9px;background:#dc2626;
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
+  color:white;cursor:pointer;transition:background .2s;
+}
+.btn-confirm-logout:hover{background:#b91c1c}
+
+/* ── RESULTS SECTION ── */
+.exam-tabs{display:flex;gap:.5rem;margin-bottom:1.25rem;flex-wrap:wrap}
+.exam-tab{
+  padding:7px 16px;border-radius:50px;
+  font-size:12px;font-weight:600;
+  border:1.5px solid var(--border);
+  background:white;color:var(--muted);
+  cursor:pointer;transition:all .2s;
+}
+.exam-tab.active{background:var(--navy);color:white;border-color:var(--navy)}
+.exam-tab:hover:not(.active){border-color:var(--accent);color:var(--accent)}
+
+/* Summary bar */
+.result-summary{
+  display:flex;gap:1rem;flex-wrap:wrap;
+  margin-bottom:1.5rem;
+}
+.rs-card{
+  flex:1;min-width:130px;
+  background:white;border-radius:14px;
+  border:1px solid var(--border);
+  padding:1rem 1.1rem;
+  text-align:center;
+}
+.rs-num{
+  font-family:'Sora',sans-serif;
+  font-size:24px;font-weight:800;
+  margin-bottom:3px;
+}
+.rs-lbl{font-size:11px;color:var(--muted);letter-spacing:.4px;text-transform:uppercase}
+
+/* Marks table */
+.marks-table-wrap{
+  background:white;border-radius:16px;
+  border:1px solid var(--border);
+  overflow:hidden;margin-bottom:2.5rem;
+}
+.marks-table{width:100%;border-collapse:collapse}
+.marks-table thead tr{background:var(--navy)}
+.marks-table thead th{
+  padding:11px 16px;
+  font-family:'Sora',sans-serif;
+  font-size:11.5px;font-weight:700;
+  color:rgba(255,255,255,.85);
+  text-align:left;letter-spacing:.5px;text-transform:uppercase;
+}
+.marks-table tbody tr{border-bottom:1px solid #f3f4f6;transition:background .15s}
+.marks-table tbody tr:last-child{border-bottom:none}
+.marks-table tbody tr:hover{background:#f8faff}
+.marks-table td{padding:12px 16px;font-size:13px;color:var(--text)}
+.subject-icon{margin-right:7px;font-size:15px}
+.subject-name{font-weight:600}
+
+/* Marks bar inside table */
+.mini-bar{height:6px;border-radius:6px;background:#f0f0f0;margin-top:5px;width:100px;overflow:hidden}
+.mini-fill{height:100%;border-radius:6px}
+
+/* Badge */
+.badge{
+  display:inline-block;padding:3px 10px;
+  border-radius:50px;font-size:11px;font-weight:700;
+  letter-spacing:.4px;
+}
+.badge-pass{background:#dcfce7;color:#16a34a}
+.badge-fail{background:#fee2e2;color:#dc2626}
+.badge-dist{background:#fef9c3;color:#a16207}
+
+/* Grade circle */
+.grade-circle{
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Sora',sans-serif;font-size:13px;font-weight:800;
+}
+
+/* Print button */
+.btn-print{
+  display:flex;align-items:center;gap:6px;
+  padding:7px 16px;background:white;
+  border:1.5px solid var(--border);border-radius:9px;
+  font-size:12.5px;font-weight:600;color:var(--navy);
+  cursor:pointer;transition:all .2s;
+}
+.btn-print:hover{background:var(--light-blue);border-color:var(--accent)}
+.btn-print svg{width:14px;height:14px;stroke:var(--navy);fill:none}
+
+/* ── FOOTER ── */
+footer{
+  text-align:center;padding:1.5rem;
+  font-size:12px;color:var(--muted);
+  border-top:1px solid var(--border);
+  background:white;margin-top:1rem;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  nav{padding:0 1rem}
+  .nav-brand span,.hero-stats{display:none}
+  .hero{padding:2rem 1rem 1.5rem}
+  .main{padding:1.25rem 1rem}
+  .hero-title{font-size:22px}
+  .btn-logout span{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-left">
+    <div class="nav-logo">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    </div>
+    <div class="nav-brand">
+      Aman Computer Education
+      <span>Student Dashboard</span>
+    </div>
+  </div>
+  <div class="nav-right">
+    <div class="user-chip">
+      <div class="user-avatar" id="userInitial">?</div>
+      <span class="user-name-nav" id="userNameNav">Loading…</span>
+    </div>
+    <button class="btn-logout" onclick="showLogoutModal()">
+      <svg viewBox="0 0 24 24" stroke-width="2">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Logout</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-greeting">👋 Welcome back</div>
+    <div class="hero-title">Hello, <span id="heroName">Student</span>!</div>
+    <div class="hero-sub">Continue your learning journey from where you left off.</div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">4</span><span class="stat-lbl">Courses Enrolled</span></div>
+      <div class="stat"><span class="stat-num">12</span><span class="stat-lbl">Lessons Done</span></div>
+      <div class="stat"><span class="stat-num">2</span><span class="stat-lbl">Certificates</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- Notice -->
+  <div class="notice">
+    <div class="notice-icon">📢</div>
+    <div>
+      <div class="notice-title">New Batch Starting Soon!</div>
+      <div class="notice-txt">MS Office & Tally ERP batch starting 15 May 2026. Register now to reserve your seat.</div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="sec-head">
+    <div class="sec-title">Quick Actions</div>
+  </div>
+  <div class="actions">
+    <div class="action-card">
+      <div class="action-icon" style="background:#eff6ff">📚</div>
+      <div class="action-label">My Courses</div>
+      <div class="action-sub">4 enrolled</div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon" style="background:#f0fdf4">📝</div>
+      <div class="action-label">Assignments</div>
+      <div class="action-sub">2 pending</div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon" style="background:#fefce8">🏆</div>
+      <div class="action-label">Certificates</div>
+      <div class="action-sub">2 earned</div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon" style="background:#fdf4ff">📅</div>
+      <div class="action-label">Schedule</div>
+      <div class="action-sub">View timetable</div>
+    </div>
+  </div>
+
+  <!-- My Courses -->
+  <div class="sec-head">
+    <div class="sec-title">My Courses</div>
+    <a class="sec-link">View All →</a>
+  </div>
+  <div class="courses">
+
+    <div class="course-card">
+      <div class="course-thumb" style="background:linear-gradient(135deg,#1e40af,#3b82f6)">💻</div>
+      <div class="course-body">
+        <div class="course-tag" style="background:#dbeafe;color:#1d4ed8">Beginner</div>
+        <div class="course-name">Basic Computer Skills</div>
+        <div class="course-meta">18 Lessons · 6 weeks</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:75%;background:#3b82f6"></div></div>
+        <div class="progress-txt">75% complete</div>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="course-thumb" style="background:linear-gradient(135deg,#065f46,#10b981)">📊</div>
+      <div class="course-body">
+        <div class="course-tag" style="background:#d1fae5;color:#065f46">Intermediate</div>
+        <div class="course-name">MS Office Complete</div>
+        <div class="course-meta">24 Lessons · 8 weeks</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:40%;background:#10b981"></div></div>
+        <div class="progress-txt">40% complete</div>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="course-thumb" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">🧮</div>
+      <div class="course-body">
+        <div class="course-tag" style="background:#ede9fe;color:#6d28d9">Intermediate</div>
+        <div class="course-name">Tally ERP 9 + GST</div>
+        <div class="course-meta">20 Lessons · 7 weeks</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:20%;background:#7c3aed"></div></div>
+        <div class="progress-txt">20% complete</div>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="course-thumb" style="background:linear-gradient(135deg,#b45309,#f59e0b)">🌐</div>
+      <div class="course-body">
+        <div class="course-tag" style="background:#fef3c7;color:#b45309">Advanced</div>
+        <div class="course-name">Web Design Basics</div>
+        <div class="course-meta">16 Lessons · 5 weeks</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:5%;background:#f59e0b"></div></div>
+        <div class="progress-txt">5% complete</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════ MY RESULTS ══════════════ -->
+  <div class="sec-head">
+    <div class="sec-title">📋 My Results</div>
+    <button class="btn-print" onclick="window.print()">
+      <svg viewBox="0 0 24 24" stroke-width="2">
+        <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Print / Save PDF
+    </button>
+  </div>
+
+  <!-- Exam Tabs -->
+  <div class="exam-tabs">
+    <button class="exam-tab active" onclick="switchExam('midterm', this)">Mid-Term Exam</button>
+    <button class="exam-tab" onclick="switchExam('final', this)">Final Exam</button>
+    <button class="exam-tab" onclick="switchExam('practical', this)">Practical Test</button>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="result-summary" id="resultSummary"></div>
+
+  <!-- Marks Table -->
+  <div class="marks-table-wrap">
+    <table class="marks-table">
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>Max Marks</th>
+          <th>Obtained</th>
+          <th>Performance</th>
+          <th>Grade</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="marksBody"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Aman Computer Education · All rights reserved
+</footer>
+
+<!-- LOGOUT MODAL -->
+<div class="modal-overlay" id="logoutModal">
+  <div class="modal">
+    <div class="modal-icon">👋</div>
+    <div class="modal-title">Logout karna chahte hain?</div>
+    <div class="modal-sub">Aap apna session end kar rahe hain.<br>Dobara login karke wapas aa sakte hain.</div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="hideLogoutModal()">Cancel</button>
+      <button class="btn-confirm-logout" onclick="confirmLogout()">Logout</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── SESSION CHECK ──────────────────────────────
+function getSession() {
+  try { return JSON.parse(localStorage.getItem('ace_session')); }
+  catch { return null; }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const session = getSession();
+
+  if (!session) {
+    window.location.href = 'login.html';
+    return;
+  }
+
+  // Fill user info
+  const name = session.name || 'Student';
+  document.getElementById('heroName').textContent = name.split(' ')[0];
+  document.getElementById('userNameNav').textContent = name.split(' ')[0];
+  document.getElementById('userInitial').textContent = name.charAt(0).toUpperCase();
+
+  // Load results set by admin
+  const adminData = loadStudentResults(session.email);
+  if (adminData && Object.keys(adminData).length) {
+    studentExamData = adminData;
+  }
+  buildExamTabs(studentExamData);
+});
+
+// ── RESULTS — Dynamic from Admin ──────────────
+let studentExamData = {};
+let currentExamKey  = null;
+
+function getGrade(pct) {
+  if (pct >= 90) return { g:'A+', bg:'#dcfce7', clr:'#15803d' };
+  if (pct >= 75) return { g:'A',  bg:'#d1fae5', clr:'#059669' };
+  if (pct >= 60) return { g:'B',  bg:'#dbeafe', clr:'#1d4ed8' };
+  if (pct >= 45) return { g:'C',  bg:'#fef9c3', clr:'#a16207' };
+  if (pct >= 33) return { g:'D',  bg:'#ffedd5', clr:'#c2410c' };
+  return                 { g:'F',  bg:'#fee2e2', clr:'#dc2626' };
+}
+
+function loadStudentResults(email) {
+  try {
+    const raw = localStorage.getItem(`ace_student_results_${email}`);
+    return raw ? JSON.parse(raw) : null;
+  } catch { return null; }
+}
+
+function buildExamTabs(data) {
+  const tabsEl = document.querySelector('.exam-tabs');
+  tabsEl.innerHTML = '';
+  const keys = Object.keys(data);
+  if (!keys.length) {
+    tabsEl.innerHTML = '<span style="font-size:13px;color:var(--muted)">Abhi koi result available nahi hai. Teacher se contact karo.</span>';
+    document.getElementById('resultSummary').innerHTML = '';
+    document.getElementById('marksBody').innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:2rem">Koi marks enter nahi hue abhi</td></tr>';
+    return;
+  }
+  keys.forEach((k, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'exam-tab' + (i===0?' active':'');
+    btn.textContent = data[k].label || k;
+    btn.onclick = function() { switchExam(k, this); };
+    tabsEl.appendChild(btn);
+  });
+  currentExamKey = keys[0];
+  renderResults(keys[0]);
+}
+
+function renderResults(key) {
+  const exam = studentExamData[key];
+  if (!exam) return;
+  const subjects = exam.subjects || [];
+  if (!subjects.length) {
+    document.getElementById('resultSummary').innerHTML = '<div style="color:var(--muted);font-size:13px">Is exam ke marks abhi nahi hain.</div>';
+    document.getElementById('marksBody').innerHTML = '';
+    return;
+  }
+
+  const totalMax    = subjects.reduce((s,r) => s + r.max, 0);
+  const totalObt    = subjects.reduce((s,r) => s + r.obt, 0);
+  const overallPct  = Math.round((totalObt / totalMax) * 100);
+  const passed      = subjects.every(r => r.max > 0 && (r.obt / r.max) >= 0.33);
+  const gradeInfo   = getGrade(overallPct);
+
+  document.getElementById('resultSummary').innerHTML = `
+    <div class="rs-card">
+      <div class="rs-num" style="color:var(--navy)">${totalObt}/${totalMax}</div>
+      <div class="rs-lbl">Total Marks</div>
+    </div>
+    <div class="rs-card">
+      <div class="rs-num" style="color:${overallPct>=60?'#16a34a':'#dc2626'}">${overallPct}%</div>
+      <div class="rs-lbl">Percentage</div>
+    </div>
+    <div class="rs-card">
+      <div class="rs-num" style="color:${gradeInfo.clr}">${gradeInfo.g}</div>
+      <div class="rs-lbl">Overall Grade</div>
+    </div>
+    <div class="rs-card">
+      <div class="rs-num" style="color:${passed?'#16a34a':'#dc2626'}">${passed?'PASS':'FAIL'}</div>
+      <div class="rs-lbl">Result</div>
+    </div>
+    <div class="rs-card">
+      <div class="rs-num" style="color:var(--muted);font-size:14px">${exam.date||'—'}</div>
+      <div class="rs-lbl">Exam Date</div>
+    </div>
+  `;
+
+  document.getElementById('marksBody').innerHTML = subjects.map(row => {
+    const pct      = row.max > 0 ? Math.round((row.obt / row.max) * 100) : 0;
+    const gr       = getGrade(pct);
+    const isPass   = pct >= 33;
+    const barColor = pct >= 75 ? '#22c55e' : pct >= 45 ? '#f59e0b' : '#ef4444';
+    return `
+      <tr>
+        <td><span class="subject-icon">${row.icon||'📘'}</span><span class="subject-name">${row.name}</span></td>
+        <td style="color:var(--muted)">${row.max}</td>
+        <td style="font-weight:700;font-size:15px;color:${barColor}">${row.obt}</td>
+        <td>
+          <div style="font-size:11.5px;color:var(--muted);margin-bottom:3px">${pct}%</div>
+          <div class="mini-bar"><div class="mini-fill" style="width:${pct}%;background:${barColor}"></div></div>
+        </td>
+        <td><div class="grade-circle" style="background:${gr.bg};color:${gr.clr}">${gr.g}</div></td>
+        <td><span class="badge ${isPass?(pct>=75?'badge-dist':'badge-pass'):'badge-fail'}">
+          ${isPass?(pct>=75?'Distinction':'Pass'):'Fail'}
+        </span></td>
+      </tr>`;
+  }).join('') + `
+    <tr style="background:#f8faff;font-weight:700">
+      <td><span class="subject-icon">📊</span><span class="subject-name">Total</span></td>
+      <td style="color:var(--muted)">${totalMax}</td>
+      <td style="font-size:15px;color:var(--navy)">${totalObt}</td>
+      <td>
+        <div style="font-size:11.5px;color:var(--muted);margin-bottom:3px">${overallPct}%</div>
+        <div class="mini-bar"><div class="mini-fill" style="width:${overallPct}%;background:${gradeInfo.clr}"></div></div>
+      </td>
+      <td><div class="grade-circle" style="background:${gradeInfo.bg};color:${gradeInfo.clr}">${gradeInfo.g}</div></td>
+      <td><span class="badge ${passed?'badge-pass':'badge-fail'}">${passed?'Pass':'Fail'}</span></td>
+    </tr>`;
+}
+
+function switchExam(key, btn) {
+  document.querySelectorAll('.exam-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  currentExamKey = key;
+  renderResults(key);
+}
+
+// ── LOGOUT MODAL ───────────────────────────────
+function showLogoutModal() {
+  document.getElementById('logoutModal').classList.add('show');
+}
+function hideLogoutModal() {
+  document.getElementById('logoutModal').classList.remove('show');
+}
+function confirmLogout() {
+  localStorage.removeItem('ace_session');
+  window.location.href = 'login.html';
+}
+
+// Close modal on backdrop click
+document.getElementById('logoutModal').addEventListener('click', function(e) {
+  if (e.target === this) hideLogoutModal();
+});
+
+// ESC key closes modal
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') hideLogoutModal();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aman Computer Education — Sign Up</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Inter',sans-serif;
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  background:#e8f4ff;padding:1rem;
+}
+
+.card{
+  display:flex;width:820px;min-height:540px;
+  border-radius:20px;overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,0.15);
+}
+
+/* Left panel */
+.left{
+  flex:1.1;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#1a3a5c 0%,#2563a8 100%);
+  display:flex;align-items:center;justify-content:center;
+}
+.left-content{position:relative;z-index:2;text-align:center;padding:2.5rem 2rem}
+.left-icon{
+  width:80px;height:80px;
+  background:rgba(255,255,255,0.15);
+  border-radius:50%;border:2px solid rgba(255,255,255,.25);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 1.5rem;
+}
+.left-icon svg{width:40px;height:40px;fill:white}
+.left-title{font-size:26px;font-weight:900;color:white;line-height:1.25;margin-bottom:.75rem}
+.left-sub{font-size:12.5px;color:rgba(255,255,255,.75);line-height:1.6}
+.features{margin-top:1.75rem;text-align:left}
+.feat{display:flex;align-items:center;gap:10px;margin-bottom:11px}
+.feat-dot{width:7px;height:7px;background:#60a5fa;border-radius:50%;flex-shrink:0}
+.feat span{font-size:12px;color:rgba(255,255,255,.85)}
+
+/* Right panel */
+.right{
+  flex:1;background:white;
+  padding:2.2rem 2.2rem;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+}
+.logo-area{text-align:center;margin-bottom:1rem}
+.logo-icon{
+  width:42px;height:42px;margin:0 auto 6px;
+  background:#1a3a5c;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.logo-icon svg{width:22px;height:22px;fill:white}
+.logo-name{font-size:11px;font-weight:600;color:#888;letter-spacing:1.5px;text-transform:uppercase}
+.welcome{font-size:21px;font-weight:800;color:#1a1a2e;text-align:center;margin-bottom:3px}
+.sub{font-size:12px;color:#888;text-align:center;margin-bottom:1.4rem}
+
+.form-full{width:100%}
+label{display:block;font-size:11.5px;font-weight:600;color:#555;margin-bottom:5px;letter-spacing:.3px}
+input[type=text],input[type=email],input[type=password]{
+  width:100%;padding:10px 13px;
+  border:1.5px solid #e0e0e0;border-radius:9px;
+  font-family:'Inter',sans-serif;font-size:13px;color:#333;
+  outline:none;transition:border .2s,box-shadow .2s;background:#fafafa;
+}
+input:focus{border-color:#1a3a5c;box-shadow:0 0 0 3px rgba(26,58,92,.1);background:white}
+input::placeholder{color:#bbb}
+input.valid{border-color:#22c55e}
+input.invalid{border-color:#ef4444}
+.field{margin-bottom:.8rem}
+
+/* Password strength */
+.strength-bar{height:4px;border-radius:4px;background:#eee;margin-top:5px;overflow:hidden}
+.strength-fill{height:100%;border-radius:4px;width:0;transition:width .3s,background .3s}
+.strength-label{font-size:10.5px;color:#aaa;margin-top:3px;height:14px}
+
+/* Alert */
+.alert{
+  padding:10px 14px;border-radius:8px;
+  font-size:12.5px;font-weight:500;
+  margin-bottom:.85rem;display:none;
+  animation:fadeIn .2s ease;
+}
+.alert.error{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+.alert.success{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+
+.btn-signup{
+  width:100%;padding:11px;
+  background:#1a1a2e;color:white;border:none;
+  border-radius:9px;font-family:'Inter',sans-serif;
+  font-size:14px;font-weight:600;cursor:pointer;
+  transition:background .2s,transform .1s;
+  margin-bottom:.8rem;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn-signup:hover{background:#2d2d50;transform:translateY(-1px)}
+.btn-signup:disabled{opacity:.7;cursor:not-allowed;transform:none}
+
+.divider{display:flex;align-items:center;gap:10px;margin-bottom:.8rem;color:#ccc;font-size:11px}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:#e5e5e5}
+
+.btn-google{
+  width:100%;padding:10px;background:white;
+  border:1.5px solid #e0e0e0;border-radius:9px;
+  font-family:'Inter',sans-serif;font-size:13px;color:#333;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;
+  font-weight:500;transition:background .2s;margin-bottom:.9rem;
+}
+.btn-google:hover{background:#f5f5f5}
+
+.signin-txt{text-align:center;font-size:12px;color:#888}
+.signin-txt a{color:#1a3a5c;font-weight:600;text-decoration:none}
+
+.spinner{
+  width:15px;height:15px;
+  border:2px solid rgba(255,255,255,.35);
+  border-top-color:white;border-radius:50%;
+  animation:spin .7s linear infinite;display:none;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:680px){
+  .card{flex-direction:column;width:100%}
+  .left{min-height:140px}
+  .features{display:none}
+  .right{padding:2rem 1.5rem}
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- LEFT -->
+  <div class="left">
+    <div class="left-content">
+      <div class="left-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="left-title">Start Your<br>Learning Journey</div>
+      <div class="left-sub">Create your free account and get access to all our courses.</div>
+      <div class="features">
+        <div class="feat"><div class="feat-dot"></div><span>Access all computer courses</span></div>
+        <div class="feat"><div class="feat-dot"></div><span>Track your learning progress</span></div>
+        <div class="feat"><div class="feat-dot"></div><span>Earn certificates on completion</span></div>
+        <div class="feat"><div class="feat-dot"></div><span>Support from expert instructors</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right">
+    <div class="logo-area">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="logo-name">Aman Computer Education</div>
+    </div>
+
+    <div class="welcome">CREATE ACCOUNT</div>
+    <div class="sub">Fill in the details below to get started</div>
+
+    <div class="alert" id="alertBox"></div>
+
+    <div class="form-full">
+      <div class="field">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="Enter your full name" autocomplete="name">
+      </div>
+      <div class="field">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="Enter your email" autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Create a password (min 6 chars)" autocomplete="new-password">
+        <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+        <div class="strength-label" id="strengthLabel"></div>
+      </div>
+      <div class="field">
+        <label for="confirm">Confirm Password</label>
+        <input type="password" id="confirm" placeholder="Repeat your password" autocomplete="new-password">
+      </div>
+
+      <button class="btn-signup" id="signupBtn" onclick="handleSignup()">
+        <span class="spinner" id="spinner"></span>
+        <span id="btnText">Create Account</span>
+      </button>
+
+      <div class="divider">or</div>
+
+      <button class="btn-google" onclick="handleGoogleSignup()">
+        <svg width="16" height="16" viewBox="0 0 48 48">
+          <path fill="#EA4335" d="M24 9.5c3.1 0 5.6 1.1 7.6 2.9l5.7-5.7C33.8 3.5 29.3 1.5 24 1.5 14.7 1.5 6.9 7.3 3.6 15.5l6.6 5.1C11.8 13.8 17.4 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.5 2.9-2.2 5.3-4.7 6.9l7.3 5.7c4.3-4 6.7-9.8 6.7-16.6z"/>
+          <path fill="#FBBC05" d="M10.2 28.4A14.6 14.6 0 0 1 9.5 24c0-1.5.3-3 .7-4.4l-6.6-5.1A22.5 22.5 0 0 0 1.5 24c0 3.6.9 7.1 2.5 10.1l6.2-5.7z"/>
+          <path fill="#34A853" d="M24 46.5c5.3 0 9.8-1.7 13.1-4.8l-7.3-5.7c-1.7 1.2-3.9 1.9-5.8 1.9-6.6 0-12.2-4.3-13.8-10.4l-6.2 5.7C6.9 40.7 14.7 46.5 24 46.5z"/>
+        </svg>
+        Sign up with Google
+      </button>
+
+      <div class="signin-txt">Already have an account? <a href="index.html">Sign in</a></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════════════════
+//  HELPERS
+// ════════════════════════════════════════════════════════════
+function getUsers() { return JSON.parse(localStorage.getItem('ace_users') || '[]'); }
+function saveUsers(arr) { localStorage.setItem('ace_users', JSON.stringify(arr)); }
+function getSession() { try { return JSON.parse(localStorage.getItem('ace_session')); } catch { return null; } }
+
+window.addEventListener('DOMContentLoaded', () => {
+  if (getSession()) window.location.href = 'home.html';
+});
+
+function showAlert(msg, type = 'error') {
+  const b = document.getElementById('alertBox');
+  b.textContent = msg; b.className = 'alert ' + type; b.style.display = 'block';
+}
+function hideAlert() { document.getElementById('alertBox').style.display = 'none'; }
+
+function setLoading(on) {
+  document.getElementById('signupBtn').disabled = on;
+  document.getElementById('spinner').style.display = on ? 'block' : 'none';
+  document.getElementById('btnText').textContent = on ? 'Creating account…' : 'Create Account';
+}
+
+// ════════════════════════════════════════════════════════════
+//  PASSWORD STRENGTH
+// ════════════════════════════════════════════════════════════
+document.getElementById('password').addEventListener('input', function () {
+  const v = this.value;
+  let s = 0;
+  if (v.length >= 6) s++;
+  if (v.length >= 10) s++;
+  if (/[A-Z]/.test(v)) s++;
+  if (/[0-9]/.test(v)) s++;
+  if (/[^A-Za-z0-9]/.test(v)) s++;
+  const lvls = [
+    {w:'0%',c:'#e0e0e0',t:''},
+    {w:'25%',c:'#ef4444',t:'Weak'},
+    {w:'50%',c:'#f97316',t:'Fair'},
+    {w:'75%',c:'#eab308',t:'Good'},
+    {w:'100%',c:'#22c55e',t:'Strong'},
+  ];
+  const l = lvls[Math.min(s, 4)];
+  const fill = document.getElementById('strengthFill');
+  const lbl  = document.getElementById('strengthLabel');
+  fill.style.width = l.w; fill.style.background = l.c;
+  lbl.textContent = v ? l.t : ''; lbl.style.color = l.c;
+});
+
+// Live confirm match
+document.getElementById('confirm').addEventListener('input', function () {
+  const pw = document.getElementById('password').value;
+  this.classList.toggle('valid', !!this.value && this.value === pw);
+  this.classList.toggle('invalid', !!this.value && this.value !== pw);
+});
+
+// ════════════════════════════════════════════════════════════
+//  SIGNUP
+// ════════════════════════════════════════════════════════════
+function handleSignup() {
+  hideAlert();
+  const name     = document.getElementById('name').value.trim();
+  const email    = document.getElementById('email').value.trim().toLowerCase();
+  const password = document.getElementById('password').value;
+  const confirm  = document.getElementById('confirm').value;
+
+  if (!name || name.length < 2)                    { showAlert('Please enter your full name (min 2 characters).'); return; }
+  if (!email || !/^\S+@\S+\.\S+$/.test(email))    { showAlert('Please enter a valid email address.'); return; }
+  if (!password || password.length < 6)            { showAlert('Password must be at least 6 characters.'); return; }
+  if (password !== confirm)                         { showAlert('Passwords do not match.'); return; }
+
+  setLoading(true);
+
+  setTimeout(() => {
+    const users = getUsers();
+
+    // — Check duplicate —
+    if (users.find(u => u.email === email)) {
+      showAlert('An account with this email already exists. Please log in.');
+      setLoading(false);
+      return;
+    }
+
+    // — Save new user —
+    users.push({ name, email, password, method: 'local', createdAt: new Date().toISOString() });
+    saveUsers(users);
+
+    showAlert('Account created! Redirecting to login…', 'success');
+    setTimeout(() => { window.location.href = 'index.html'; }, 1400);
+    setLoading(false);
+  }, 600);
+}
+
+// ════════════════════════════════════════════════════════════
+//  GOOGLE SIGN UP (simulated)
+// ════════════════════════════════════════════════════════════
+function handleGoogleSignup() {
+  const email = prompt('🔵 Google Sign-Up Simulation\n\nEnter your Google email:');
+  if (!email || !/^\S+@\S+\.\S+$/.test(email.trim())) {
+    if (email !== null) alert('Please enter a valid email.');
+    return;
+  }
+  const em   = email.toLowerCase().trim();
+  const name = em.split('@')[0].replace(/[._]/g,' ').replace(/\b\w/g, c => c.toUpperCase());
+  const users = getUsers();
+  if (!users.find(u => u.email === em)) {
+    users.push({ name, email: em, password: null, method: 'google', createdAt: new Date().toISOString() });
+    saveUsers(users);
+  }
+  localStorage.setItem('ace_session', JSON.stringify({ name, email: em, method: 'google', loggedInAt: new Date().toISOString() }));
+  window.location.href = 'home.html';
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Enter') handleSignup(); });
+</script>
+</body>
+</html>
